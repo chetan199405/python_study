@@ -1,0 +1,96 @@
+what is class, object, attributes, methods, self, 
+
+core concepts in Python's Object-Oriented Programming (OOP).
+
+1. Class
+A class is a blueprint or template for creating objects.
+
+🔹 Think of a class like a car design — it defines how a car should look and behave, but it's not a real car yet.
+
+Code:
+class Car:
+    pass  # this is a class
+
+
+2. Object
+An object is an actual instance of a class. It’s the real version created using the blueprint.
+
+🔹 If Car is the blueprint, then my_car = Car() is a real car object.
+
+Code:
+my_car = Car()  # This creates an object of class Car
+
+
+3. Attributes
+Attributes are variables inside a class that store data related to an object.
+
+class Car:
+    def __init__(self, brand, speed):
+        self.brand = brand      # attribute
+        self.speed = speed      # attribute
+
+brand and speed are attributes.
+
+
+ 4. Methods
+Methods are functions inside a class. They define the behavior or actions the object can perform.
+
+class Car:
+    def start(self):
+        print("Car started")
+
+start() is a method.
+
+
+ 5. self
+self refers to the current object.
+It’s how Python knows which object’s data (attributes) you're working with.
+It’s used in all instance methods to access or modify object data.
+
+class Car:
+    def __init__(self, brand):
+        self.brand = brand  # 'self.brand' belongs to this object
+
+c1 = Car("Honda")
+print(c1.brand)  # Honda
+self.brand = brand → sets the attribute brand of object c1.
+
+Term	            Meaning
+class	            Blueprint for objects
+object	            Actual instance of a class
+attribute	        Variable that holds object data
+method	            Function defined inside a class
+self	            Refers to the current object being accessed
+
+
+#Example using the car details using (class, object, attributes, methods, self)
+
+class Car:
+    def __init__(self, brand, model, year):
+        self.brand = brand
+        self.model = model
+        self.year = year
+
+    def start(self):
+        print(f"{self.brand} {self.model} is starting...")
+
+    def stop(self):
+        print(f"{self.brand} {self.model} is stopping...")
+
+    def info(self):
+        print(f"Car Info: {self.year} {self.brand} {self.model}")
+
+# Create objects
+car1 = Car("Toyota", "Camry", 2020)
+car2 = Car("Tesla", "Model 3", 2022)
+
+# Call methods
+car1.start()
+car1.info()
+car1.stop()
+
+print("---")
+
+car2.start()
+car2.info()
+car2.stop()
