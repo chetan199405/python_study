@@ -63,7 +63,7 @@ method	            Function defined inside a class
 self	            Refers to the current object being accessed
 
 
-#Example using the car details using (class, object, attributes, methods, self)
+#Example using the car details using (class, object, attributes, methods, self methods)
 
 class Car:
     def __init__(self, brand, model, year):
