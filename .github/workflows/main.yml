@@ -1,9 +1,12 @@
-name: Run Tests
+name: CI/CD Workflow
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  test:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -20,6 +23,5 @@ jobs:
       - name: Run tests
         run: pytest
 
-      - name: Build package
-        run: python setup.py sdist bdist_wheel
-
+      - name: Deploy to EC2 (example)
+        run: ssh user@your-ec2-ip "cd /app && git pull && systemctl restart myapp"
