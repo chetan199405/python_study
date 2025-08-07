@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerraForce Earthmovers - Heavy Equipment Solutions</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 600px;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/29577358-625a-4f8c-bb69-2d034359bf8f.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: left;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            margin-left: 15px;
+        }
+        
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+        
+        /* Equipment Categories */
+        .section-title {
+            text-align: center;
+            margin: 60px 0 30px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 350px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .category-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .category-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .category-card:hover .category-img img {
+            transform: scale(1.05);
+        }
+        
+        .category-info {
+            padding: 20px;
+        }
+        
+        .category-info h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .category-info p {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        /* Featured Equipment */
+        .featured {
+            background-color: var(--light);
+            padding: 60px 0;
+        }
+        
+        .equipment-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 30px;
+            padding: 20px 0;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .equipment-slider::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .equipment-slider::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .equipment-slider::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 10px;
+        }
+        
+        .equipment-card {
+            flex: 0 0 300px;
+            scroll-snap-align: start;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .equipment-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .equipment-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .equipment-details {
+            padding: 20px;
+        }
+        
+        .equipment-details h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .spec {
+            display: flex;
+            align-items: center;
+        }
+        
+        .spec-icon {
+            margin-right: 8px;
+            color: var(--secondary);
+        }
+        
+        .price {
+            font-weight: 700;
+            color: var(--secondary);
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        
+        /* Stats Section */
+        .stats {
+            background-color: var(--primary);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .stat-item {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .stat-num {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        
+        .stat-text {
+            font-size: 18px;
+            color: var(--light);
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+        }
+        
+        .contact-container {
+            display: flex;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contact-info h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .info-item {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .info-icon {
+            margin-right: 15px;
+            color: var(--secondary);
+        }
+        
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 16px;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-col {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-col h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--gray);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--primary);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 30px;
+                transition: left 0.3s;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hero {
+                height: 500px;
+                text-align: center;
+            }
+            
+            .hero-content {
+                text-align: center;
+                margin: 0 auto;
+            }
+            
+            .btn-group {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Terra<span>Force</span></a>
+                <button class="mobile-menu-btn">☰</button>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#equipment">Equipment</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#stats">Stats</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Powering Construction with Advanced Earthmoving Solutions</h1>
+                <p>Explore our premium range of excavators, bulldozers, and loaders designed for maximum efficiency and durability in the toughest environments.</p>
+                <div class="btn-group">
+                    <a href="#equipment" class="btn">View Equipment</a>
+                    <a href="#contact" class="btn btn-outline">Get a Quote</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment Categories -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title" id="equipment">
+                <h2>Our Equipment Categories</h2>
+                <p>Browse our comprehensive range of earthmoving machinery built to handle any job site challenge.</p>
+            </div>
+            <div class="categories">
+                <div class="category-card">
+                    <div class="category-img">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/56572619-2faf-406d-8e77-b16a5aaa9b4c.png" alt="Large yellow excavator digging at construction site with dirt flying">
+                    </div>
+                    <div class="category-info">
+                        <h3>Excavators</h3>
+                        <p>From mini excavators for tight spaces to large hydraulic models for heavy digging.</p>
+                        <a href="#" class="btn">Explore</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-img">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d218548a-13f6-4d17-96c3-c91421162486.png" alt="Powerful bulldozer moving massive piles of dirt at mining site">
+                    </div>
+                    <div class="category-info">
+                        <h3>Bulldozers</h3>
+                        <p>High-performance dozers for grading, leveling, and earthmoving tasks.</p>
+                        <a href="#" class="btn">Explore</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-img">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/027c62d4-53bc-4d50-b439-8de5774c84e4.png" alt="Front-end loader at construction site moving gravel pile">
+                    </div>
+                    <div class="category-info">
+                        <h3>Wheel Loaders</h3>
+                        <p>Versatile loaders for material handling with exceptional lift capacity.</p>
+                        <a href="#" class="btn">Explore</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Equipment -->
+    <section class="featured section" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Equipment</h2>
+                <p>Our most popular models with advanced features and unbeatable performance.</p>
+            </div>
+            <div class="equipment-slider">
+                <div class="equipment-card">
+                    <div class="equipment-img">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/09bbba29-b1eb-4f4f-b08a-17bafb9f92f7.png" alt="Modern hydraulic excavator with extended arm digging deep trench">
+                    </div>
+                    <div class="equipment-details">
+                        <h3>TF-X500 Hydraulic Excavator</h3>
+                        <div class="specs">
+                            <div class="spec">
+                                <span class="spec-icon">⚙️</span>
+                                <span>350 HP</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec-icon">⏲️</span>
+                                <span>2.5 m³ Bucket</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec-icon">⚖️</span>
+                                <span>52,000 kg</span>
+                            </div>
+                        </div>
+                        <div class="price">$285,000</div>
+                        <a href="#" class="btn">View Details</a>
+                    </div>
+                </div>
+                <div class="equipment-card">
+                    <div class="equipment-img">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9931ae77-3b81-469b-b65c-1fc0ce81ba0d.png" alt="Heavy-duty bulldozer with ripper attachment moving through rocky terrain">
+                    </div>
+                    <div class="equipment-details">
+                        <h3>TF-D850 Crawler Dozer</h3>
+                        <div class="specs">
+                            <div class="spec">
+                                <span class="spec-icon">⚙️</span>
+                                <span>450 HP</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec-icon">⏲️</span>
+                                <span>8.3 m Blade</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec-icon">⚖️</span>
+                                <span>78,000 kg</span>
+                            </div>
+                        </div>
+                        <div class="price">$320,000</div>
+                        <a href="#" class="btn">View Details</a>
+                    </div>
+                </div>
+                <div class="equipment-card">
+                    <div class="equipment-img">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/03345199-b894-400f-97c2-d61bdc288054.png" alt="Large wheel loader lifting massive pile of gravel at quarry">
+                    </div>
+                    <div class="equipment-details">
+                        <h3>TF-L750 Wheel Loader</h3>
+                        <div class="specs">
+                            <div class="spec">
+                                <span class="spec-icon">⚙️</span>
+                                <span>380 HP</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec-icon">⏲️</span>
+                                <span>5.5 m³ Bucket</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec-icon">⚖️</span>
+                                <span>42,000 kg</span>
+                            </div>
+                        </div>
+                        <div class="price">$265,000</div>
+                        <a href="#" class="btn">View Details</a>
+                    </div>
+                </div>
+                <div class="equipment-card">
+                    <div class="equipment-img">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f3c8c63e-2709-4cbc-9e98-12f723425054.png" alt="Compact excavator working in urban environment near buildings">
+                    </div>
+                    <div class="equipment-details">
+                        <h3>TF-M150 Mini Excavator</h3>
+                        <div class="specs">
+                            <div class="spec">
+                                <span class="spec-icon">⚙️</span>
+                                <span>42 HP</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec-icon">⏲️</span>
+                                <span>0.25 m³ Bucket</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec-icon">⚖️</span>
+                                <span>1,500 kg</span>
+                            </div>
+                        </div>
+                        <div class="price">$48,000</div>
+                        <a href="#" class="btn">View Details</a>
+                    </div>
+                </div>
+                <div class="equipment-card">
+                    <div class="equipment-img">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/92a59747-2454-4f9b-bc62-ad1940252fcf.png" alt="Articulated dump truck hauling dirt on construction site with dust trail">
+                    </div>
+                    <div class="equipment-details">
+                        <h3>TF-A600 Articulated Dump Truck</h3>
+                        <div class="specs">
+                            <div class="spec">
+                                <span class="spec-icon">⚙️</span>
+                                <span>560 HP</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec-icon">⏲️</span>
+                                <span>38 ton Payload</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec-icon">⚖️</span>
+                                <span>65,000 kg</span>
+                            </div>
+                        </div>
+                        <div class="price">$410,000</div>
+                        <a href="#" class="btn">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats" id="stats">
+        <div class="container">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-num">950+</div>
+                    <div class="stat-text">Machines Sold Worldwide</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">40+</div>
+                    <div class="stat-text">Years in Business</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">24/7</div>
+                    <div class="stat-text">Customer Support</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">98%</div>
+                    <div class="stat-text">Customer Satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact section" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get In Touch</h2>
+                <p>Contact us for equipment inquiries, service requests, or to schedule a demo.</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="info-item">
+                        <div class="info-icon">📍</div>
+                        <div>
+                            <h4>Address</h4>
+                            <p>123 Industrial Park, Building 4<br>Construction City, CC 90210</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">📞</div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+1 (800) 555-1967<br>Mon-Fri: 8AM - 6PM</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">✉️</div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>sales@terraforce.com<br>support@terraforce.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="inquiryForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="interest">Interest/Equipment</label>
+                            <select id="interest" class="form-control">
+                                <option value="">Select Equipment</option>
+                                <option value="excavators">Excavators</option>
+                                <option value="bulldozers">Bulldozers</option>
+                                <option value="loaders">Wheel Loaders</option>
+                                <option value="dumptrucks">Dump Trucks</option>
+                                <option value="service">Service Inquiry</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Submit Inquiry</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h4>TerraForce</h4>
+                    <p>Providing high-performance earthmoving solutions since 1983. Reliable equipment for any construction challenge.</p>
+                    <div class="social-links">
+                        <a href="#"><span class="social-icon">FB</span></a>
+                        <a href="#"><span class="social-icon">TW</span></a>
+                        <a href="#"><span class="social-icon">LI</span></a>
+                        <a href="#"><span class="social-icon">YT</span></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#equipment">Equipment</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#stats">Stats</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Equipment</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Excavators</a></li>
+                        <li><a href="#">Bulldozers</a></li>
+                        <li><a href="#">Wheel Loaders</a></li>
+                        <li><a href="#">Dump Trucks</a></li>
+                        <li><a href="#">Attachments</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Service Request</a></li>
+                        <li><a href="#">Parts Catalog</a></li>
+                        <li><a href="#">Operator Training</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Warranty</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2023 TerraForce Earthmovers. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        $(document).ready(function() {
+            // Mobile Menu Toggle
+            $('.mobile-menu-btn').click(function() {
+                $('.nav-links').toggleClass('active');
+            });
+            
+            // Smooth scrolling for navigation links
+            $('a[href*="#"]').on('click', function(e) {
+                e.preventDefault();
+                
+                $('html, body').animate(
+                    {
+                        scrollTop: $($(this).attr('href')).offset().top - 70,
+                    },
+                    500,
+                    'linear'
+                );
+                
+                // Close mobile menu if open
+                $('.nav-links').removeClass('active');
+            });
+            
+            // Form submission
+            $('#inquiryForm').submit(function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const name = $('#name').val();
+                const email = $('#email').val();
+                const phone = $('#phone').val();
+                const interest = $('#interest').val();
+                const message = $('#message').val();
+                
+                // Here you would typically send the data to a server
+                console.log('Form submitted:', {name, email, phone, interest, message});
+                
+                // Show success message
+                alert('Thank you for your inquiry, ' + name + '! We will contact you shortly.');
+                
+                // Reset form
+                this.reset();
+            });
+            
+            // Equipment slider scrolling (for touch devices)
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            const slider = $('.equipment-slider')[0];
+            
+            if (slider) {
+                slider.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    slider.classList.add('active');
+                    startX = e.pageX - slider.offsetLeft;
+                    scrollLeft = slider.scrollLeft;
+                });
+                
+                slider.addEventListener('mouseleave', () => {
+                    isDown = false;
+                    slider.classList.remove('active');
+                });
+                
+                slider.addEventListener('mouseup', () => {
+                    isDown = false;
+                    slider.classList.remove('active');
+                });
+                
+                slider.addEventListener('mousemove', (e) => {
+                    if(!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - slider.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    slider.scrollLeft = scrollLeft - walk;
+                });
+            }
+            
+            // Animate stats when they come into view
+            const statItems = $('.stat-item');
+            
+            function animateStats() {
+                statItems.each(function() {
+                    const elementTop = $(this).offset().top;
+                    const elementHeight = $(this).outerHeight();
+                    const viewportHeight = $(window).height();
+                    const scrollPosition = $(window).scrollTop();
+                    
+                    if (elementTop < (scrollPosition + viewportHeight - elementHeight/2)) {
+                        $(this).addClass('animated');
+                    }
+                });
+            }
+            
+            // Run once on page load
+            animateStats();
+            
+            // Run on scroll
+            $(window).scroll(function() {
+                animateStats();
+            });
+        });
+    </script>
+</body>
+</html>
+
